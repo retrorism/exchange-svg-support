@@ -1,0 +1,21 @@
+{
+    "name": "retrorism/exchange-svg-support",
+    "description": "Adding SVG support to the Exchange Backend, forked from Jörn Lund's WP SVG Support ",
+    "authors":  [
+      {
+        "name": "Jörn Lund",
+        "homepage": "https://github.com/mcguffin"
+      },
+      {
+        "name": "Willem Prins | SOMTIJDS",
+        "email": "willem@somtijds.nl",
+        "homepage": "http://www.somtijds.nl"
+      }
+    ],
+    "type": "wordpress-plugin",
+    "source": {
+        "url": "https://github.com/retrorism/exchange-svg-support.git",
+        "type": "git",
+        "reference": "master"
+    }
+}
