@@ -3,7 +3,7 @@
 /*
 Plugin Name: Exchange SVG Support
 Plugin URI: https://github.com/mcguffin/wp-svg-support
-Description: Adds SVG upload and editing support to Wordpress.
+Description: Adds SVG upload and editing support for the Exchange Theme. Based on Jörn Lunds WP SVG Support
 Author: Jörn Lund
 Version: 1.0.0
 Author URI: https://github.com/mcguffin/
@@ -105,19 +105,23 @@ class SvgSupport {
 	 * @filter 'wp_get_attachment_metadata'
 	 */
 	function svg_get_attachment_metadata( $data , $post_id ) {
-		// if ( ! $data ) {
-	    //     if ( !$post = get_post( $post_id ) )
-	    //             return false;
-	    //     // load base class
-		//         _wp_image_editor_choose();
-		//         require_once plugin_dir_path(__FILE__) . '/include/class-wpsvg-image-editor-svg.
-		//         $file = get_attached_file( $post_id, true );
-		//         $editor = new WPSVG_Image_Editor_SVG( $file );
-		//         return $editor->get_size();
-		// 	}
-		// Replace the above with the simpler implementation below, returning sizes and nothing else.
+
+		if ( ! $data ) {
+	        if ( !$post = get_post( $post_id ) ) {
+                return false;
+			}
+			// If attachment metadata has not been passed on, it might be because it's an SVG
+	        // load base class
+	        _wp_image_editor_choose();
+	        require_once plugin_dir_path(__FILE__) . '/include/class-wpsvg-image-editor-svg.php';
+	        $file = get_attached_file( $post_id, true );
+	        $editor = new WPSVG_Image_Editor_SVG( $file );
+	        return $editor->get_size();
+		}
 		$metadata = array();
-		$data = $this->svg_generate_metadata( $metadata, $post_id );
+		// This line prevented image editor from getting the right data: added extra check.
+		$svg_data = $this->svg_generate_metadata( $metadata, $post_id );
+		$data = $svg_data ? $svg_data : $data;
 		return $data;
 	}
 
@@ -133,7 +137,9 @@ class SvgSupport {
 	function add_svg_editor( $editors ) {
 		require_once plugin_dir_path(__FILE__) . '/include/class-wpsvg-image-editor-svg.php';
 		require_once plugin_dir_path(__FILE__) . '/include/simplexml-tools.php';
+		// How about we push instead?
 		array_unshift($editors,'WPSVG_Image_Editor_SVG');
+		//array_push( $editors, 'WPSVG_Image_Editor_SVG');
 		return $editors;
 	}
 	/**
@@ -154,9 +160,8 @@ class SvgSupport {
 	 * @filter 'wp_generate_attachment_metadata'
 	 */
 	function svg_generate_metadata( $metadata , $attachment_id ) {
-		$metadata['content'] = 'This still works';
 		$post = get_post($attachment_id);
-		if ( 'image/svg+xml' == $post->post_mime_type ) {
+		if ( 'image/svg+xml' === $post->post_mime_type ) {
 			// get file source
 			$file = get_attached_file( $attachment_id );
 			$updir = wp_upload_dir();
