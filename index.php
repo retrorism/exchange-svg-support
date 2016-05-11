@@ -35,14 +35,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 };
 
 
-if ( ! class_exists( 'SvgSupport' ) ):
-class SvgSupport {
+if ( ! class_exists( 'Exchange_SVG_Support' ) ):
+class Exchange_SVG_Support {
 	private static $_instance = null;
 
 	/**
 	 * Getting a singleton.
 	 *
-	 * @return object single instance of SvgSupport
+	 * @return object single instance of Exchange_SVG_Support
 	 */
 	public static function get_instance() {
 		if ( is_null( self::$_instance ) )
@@ -53,7 +53,7 @@ class SvgSupport {
 	/**
 	 * Private constructor
 	 */
-	private function __construct() {
+	public function __construct() {
 		add_action( 'plugins_loaded' , array( &$this , 'load_textdomain' ) );
 		add_action( 'init' , array( &$this , 'init' ) );
 		add_filter( 'wp_image_editors' , array( &$this , 'add_svg_editor' ) );
@@ -239,6 +239,6 @@ class SvgSupport {
 	public static function uninstall(){ }
 
 }
-SvgSupport::get_instance();
+Exchange_SVG_Support::get_instance();
 
 endif;
