@@ -1,16 +1,18 @@
 <?php
-
-/*
-Plugin Name: Exchange SVG Support
-Plugin URI: https://github.com/mcguffin/wp-svg-support
-Description: Adds SVG upload and editing support for the Exchange Theme. Based on Jörn Lunds WP SVG Support
-Author: Jörn Lund
-Version: 1.0.0
-Author URI: https://github.com/mcguffin/
-License: GPL3
-
-Text Domain: exchange-svg-support
-Domain Path: /languages/
+/**
+ * Exchange SVG Support
+ *
+ * @wordpress-plugin
+ * Author: Jörn Lund
+ * Author URI: https://github.com/mcguffin/
+ * Plugin Name: Exchange SVG Support
+ * Plugin URI: https://github.com/mcguffin/wp-svg-support
+ * Description: Adds SVG upload and editing support for the Exchange Theme. Based on Jörn Lunds WP SVG Support
+ * Version: 1.0.0
+ * License: GPL3
+ *
+ * Text Domain: exchange-svg-support
+ * Domain Path: /languages/
 */
 
 /*  Copyright 2014  Jörn Lund
